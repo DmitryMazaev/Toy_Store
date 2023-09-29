@@ -29,6 +29,11 @@
     @Override
     public String toString()
     {
-        return "Игрушка " + this.nameToy;
+        return "Игрушка " + this.nameToy + " " + this.frequency + " шт";
+    }
+
+    public String toStringWhithoutFrequency()
+    {
+        return "Игрушка " + this.nameToy + " (количество до выдачи - " + this.frequency + " шт)";
     }
 }

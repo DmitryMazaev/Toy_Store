@@ -1,7 +1,9 @@
-﻿import java.util.ArrayList;
+﻿import java.io.FileWriter;
+import java.util.ArrayList;
 
 public class ToyMachine {
     public static void main(String[] args) throws Exception {
+        // Экземпляры игрушек
         Toy robot = new Toy(1, "Робот", 5);
         Toy puzzle = new Toy(2, "Пазл", 3);
         Toy constructor = new Toy(3, "Конструктор", 7);
@@ -25,14 +27,17 @@ public class ToyMachine {
         toyList.add(gun);
         toyList.add(soapBubbles);
 
+        
+
         while (true)
         {
+            FileWriter fw = new FileWriter("ToyStore.txt", true);
             СhoiceToy choiceToy = new СhoiceToy();
-            choiceToy.choiceThreeToy(toyList);
-
+            choiceToy.choiceThreeToy(toyList, fw);
+            fw.close();
             GiveToy giveToy = new GiveToy();
             giveToy.priorityQueue(choiceToy.getToysToGive());
-            giveToy.changeFrequency(choiceToy.choiceList, choiceToy.getToysToGive());
+            giveToy.changeFrequency(choiceToy.getChoiceList(), choiceToy.getToysToGive());
         }
         
     }

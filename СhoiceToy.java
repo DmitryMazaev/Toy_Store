@@ -1,10 +1,13 @@
-﻿import java.util.ArrayList;
+﻿import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class СhoiceToy {
+    // Список из выбранных id игрушек
+    private ArrayList <Integer> choiceList = new ArrayList<>();
 
-    public ArrayList <Integer> choiceList = new ArrayList<>();
-
+    // Список игрушек, предназначенных для выдачи пользователю
     private ArrayList <Toy> toysToGive = new ArrayList<>();
 
     public ArrayList<Toy> getToysToGive() {
@@ -15,7 +18,10 @@ public class СhoiceToy {
         return choiceList;
     }
 
-    public void choiceThreeToy (ArrayList <Toy> toyList)
+    EnterNumber enterNumber = new EnterNumber();
+
+    // Функция для ввода пользователем id игрушек, которые он хочет выбрать
+    public void choiceThreeToy (ArrayList <Toy> toyList, FileWriter fw)
     {
         Scanner in = new Scanner(System.in);
 
@@ -29,13 +35,24 @@ public class СhoiceToy {
         }
 
         System.out.print("Введите id первой игрушки: ");
-        int firstToy = in.nextInt();
+        int firstToy = enterNumber.enterNumber();
         choiceList.add(firstToy);
         
         for (Toy toy : toyList) {
             if (toy.getIdToy() == firstToy)
             {
                 toysToGive.add(toy);
+                try {
+                    fw.write("Выдача игрушек:");
+                    fw.write("\n");
+                    fw.write("| id | Имя | Кол-во |");
+                    fw.write("\n");
+                    fw.write("  " + toy.getIdToy() + " " + toy.getNameToy() + " " + toy.getFrequency());
+                    fw.write("\n");
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -54,6 +71,13 @@ public class СhoiceToy {
             if (toy.getIdToy() == secondToy)
             {
                 toysToGive.add(toy);
+                try {
+                    fw.write("  " + toy.getIdToy() + " " + toy.getNameToy() + " " + toy.getFrequency());
+                    fw.write("\n");
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -72,10 +96,16 @@ public class СhoiceToy {
             if (toy.getIdToy() == thirdToy)
             {
                 toysToGive.add(toy);
+                try {
+                    fw.write("  " + toy.getIdToy() + " " + toy.getNameToy() + " " + toy.getFrequency());
+                    fw.write("\n");
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         }
-
-        //in.close();
+        System.out.println("============");
 
         System.out.println("Вы выбрали следующие игрушки: ");
         for (Toy toy : toyList) {
